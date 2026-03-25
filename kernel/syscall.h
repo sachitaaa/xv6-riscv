@@ -21,4 +21,5 @@
 #define SYS_mkdir  20
 #define SYS_close  21
 #define SYS_setpriority 22
-#define SYS_getppid 23  // Use the next available number
+#define SYS_getppid 23
+#define SYS_meminfo 24

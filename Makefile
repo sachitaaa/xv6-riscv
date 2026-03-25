@@ -147,6 +147,7 @@ UPROGS=\
 	$U/_dorphan\
 	$U/_head\
 	$U/_testppid\
+	$U/_meminfo\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)

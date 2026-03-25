@@ -44,3 +44,4 @@ entry("pause");
 entry("uptime");
 entry("setpriority");
 entry("getppid");
+entry("meminfo");
