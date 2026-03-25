@@ -17,7 +17,6 @@ struct context {
   uint64 s10;
   uint64 s11;
 
-  int priority;
 };
 
 // Per-CPU state.
