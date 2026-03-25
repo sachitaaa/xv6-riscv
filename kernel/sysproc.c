@@ -134,3 +134,9 @@ sys_setpriority(void)
   }
   return -1;
 }
+
+uint64
+sys_getppid(void)
+{
+  return myproc()->parent->pid;
+}
