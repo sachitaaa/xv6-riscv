@@ -503,3 +503,74 @@ sys_pipe(void)
   }
   return 0;
 }
+
+uint64
+sys_rename(void)
+{
+  char old[MAXPATH], new[MAXPATH];
+  char oldname[DIRSIZ], newname[DIRSIZ];
+  struct inode *ip, *dp;
+  struct dirent de;
+  uint off;
+
+  if(argstr(0, old, MAXPATH) < 0 || argstr(1, new, MAXPATH) < 0)
+    return -1;
+
+  begin_op();
+
+  // --- link new -> old's inode (from sys_link logic) ---
+  if((ip = namei(old)) == 0){
+    end_op();
+    return -1;
+  }
+  ilock(ip);
+  if(ip->type == T_DIR){
+    iunlockput(ip);
+    end_op();
+    return -1;
+  }
+  ip->nlink++;
+  iupdate(ip);
+  iunlock(ip);
+
+  if((dp = nameiparent(new, newname)) == 0)
+    goto bad;
+  ilock(dp);
+  if(dp->dev != ip->dev || dirlink(dp, newname, ip->inum) < 0){
+    iunlockput(dp);
+    goto bad;
+  }
+  iunlockput(dp);
+
+  // --- unlink old (from sys_unlink logic) ---
+  if((dp = nameiparent(old, oldname)) == 0)
+    goto bad;
+  ilock(dp);
+  if(namecmp(oldname, ".") == 0 || namecmp(oldname, "..") == 0){
+    iunlockput(dp);
+    goto bad;
+  }
+  if((ip = dirlookup(dp, oldname, &off)) == 0){
+    iunlockput(dp);
+    goto bad;
+  }
+  ilock(ip);
+  memset(&de, 0, sizeof(de));
+  if(writei(dp, 0, (uint64)&de, off, sizeof(de)) != sizeof(de))
+    panic("sys_rename: writei");
+  iunlockput(dp);
+  ip->nlink--;
+  iupdate(ip);
+  iunlockput(ip);
+
+  end_op();
+  return 0;
+
+bad:
+  ilock(ip);
+  ip->nlink--;
+  iupdate(ip);
+  iunlockput(ip);
+  end_op();
+  return -1;
+}

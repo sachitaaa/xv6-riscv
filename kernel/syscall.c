@@ -104,6 +104,7 @@ extern uint64 sys_close(void);
 extern uint64 sys_setpriority(void);
 extern uint64 sys_getppid(void);
 extern uint64 sys_meminfo(void);
+extern uint64 sys_rename(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -132,6 +133,7 @@ static uint64 (*syscalls[])(void) = {
 [SYS_setpriority] sys_setpriority,
 [SYS_getppid] sys_getppid,
 [SYS_meminfo] sys_meminfo,
+[SYS_rename]  sys_rename,
 };
 
 void

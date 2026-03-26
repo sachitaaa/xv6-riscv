@@ -45,3 +45,4 @@ entry("uptime");
 entry("setpriority");
 entry("getppid");
 entry("meminfo");
+entry("rename");

@@ -23,3 +23,4 @@
 #define SYS_setpriority 22
 #define SYS_getppid 23
 #define SYS_meminfo 24
+#define SYS_rename  25

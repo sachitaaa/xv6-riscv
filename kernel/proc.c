@@ -126,7 +126,8 @@ found:
   p->state = USED;
 
   p->priority = 10;
-
+  p->wait_ticks = 0;  
+  
   // Allocate a trapframe page.
   if((p->trapframe = (struct trapframe *)kalloc()) == 0){
     freeproc(p);
@@ -478,6 +479,20 @@ scheduler(void)
     intr_on();
     intr_off();
 
+    // --- AGING: boost priority of long-waiting processes ---
+    for(p = proc; p < &proc[NPROC]; p++) {
+      acquire(&p->lock);
+      if(p->state == RUNNABLE) {
+        p->wait_ticks++;
+        if(p->wait_ticks % 100 == 0 && p->priority > 0)
+          p->priority--;   // lower number = higher priority
+      } else {
+        p->wait_ticks = 0; // reset when not runnable
+      }
+      release(&p->lock);
+    }
+    // --- END AGING ---
+
     best = 0;
 
     for(p = proc; p < &proc[NPROC]; p++) {
@@ -498,7 +513,7 @@ scheduler(void)
     if(best != 0) {
       best->state = RUNNING;
       c->proc = best;
-      swtch (&c->context, &best->context);
+      swtch(&c->context, &best->context);
       c->proc = 0;
       release(&best->lock);
     } else {

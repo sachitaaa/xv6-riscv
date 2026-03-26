@@ -27,6 +27,7 @@ int uptime(void);
 int setpriority(int, int);
 int getppid(void);
 uint64 meminfo(void);
+int rename(const char*, const char*);
 
 // ulib.c
 int stat(const char*, struct stat*);
