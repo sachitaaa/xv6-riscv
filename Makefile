@@ -148,6 +148,7 @@ UPROGS=\
 	$U/_head\
 	$U/_testppid\
 	$U/_meminfo\
+	$U/_uniq\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
