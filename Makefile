@@ -145,7 +145,6 @@ UPROGS=\
 	$U/_logstress\
 	$U/_forphan\
 	$U/_dorphan\
-	$U/_head\
 	$U/_testppid\
 	$U/_meminfo\
 	$U/_uniq\
