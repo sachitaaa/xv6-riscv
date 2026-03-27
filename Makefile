@@ -145,15 +145,14 @@ UPROGS=\
 	$U/_logstress\
 	$U/_forphan\
 	$U/_dorphan\
-	$U/_testppid\
+	$U/_getppid\
 	$U/_meminfo\
-<<<<<<< HEAD
 	$U/_uniq\
-=======
 	$U/_priotest\
 	$U/_agetest\
 	$U/_rename\
->>>>>>> 710a98e (my work added)
+	$U/_head\
+	$U/_touch\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
