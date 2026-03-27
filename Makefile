@@ -145,6 +145,8 @@ UPROGS=\
 	$U/_logstress\
 	$U/_forphan\
 	$U/_dorphan\
+
+# Added after implementations
 	$U/_getppid\
 	$U/_meminfo\
 	$U/_uniq\
