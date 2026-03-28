@@ -145,8 +145,6 @@ UPROGS=\
 	$U/_logstress\
 	$U/_forphan\
 	$U/_dorphan\
-
-# Added after implementations
 	$U/_getppid\
 	$U/_meminfo\
 	$U/_uniq\
@@ -155,6 +153,9 @@ UPROGS=\
 	$U/_rename\
 	$U/_head\
 	$U/_touch\
+	$U/_getppidtest\
+	$U/_meminfotest\
+	$U/_renametest
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
