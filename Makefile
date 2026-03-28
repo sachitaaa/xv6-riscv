@@ -155,8 +155,8 @@ UPROGS=\
 	$U/_touch\
 	$U/_getppidtest\
 	$U/_meminfotest\
-	$U/_renametest
-
+	$U/_renametest\
+        $U/_testppid
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
 
