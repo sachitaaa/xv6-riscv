@@ -120,7 +120,7 @@ sys_setpriority(void)
   int pid, priority;
   struct proc *p;
   
-  // This line tells the compiler that 'proc' is defined in proc.c
+  
   extern struct proc proc[]; 
 
   argint(0, &pid);

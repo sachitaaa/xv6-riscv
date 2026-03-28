@@ -467,7 +467,7 @@ kwait(uint64 addr)
 //   }
 // }
 
-/* Priority Scheduler*/
+
 void
 scheduler(void)
 {
